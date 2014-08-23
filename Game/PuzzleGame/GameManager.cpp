@@ -306,3 +306,18 @@ void GameManager::printTimer()
 	}
 	Location(miX, miY);
 }
+
+int GameManager::getTime()
+{
+	return miTime;
+}
+
+void GameManager::setGameStateGameOver()
+{
+	miGameState = kGameStateGameOver;
+}
+
+bool GameManager::isGameStateGameOver()
+{
+	return miGameState == kGameStateGameOver ? true : false;
+}

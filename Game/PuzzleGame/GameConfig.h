@@ -30,6 +30,7 @@ using namespace std;
 #define TIMER_GAUGE_INIT_HEIGHT (FRAME_INIT_X + FRAME_HEIGHT + FRAME_BORDER_WIDTH*2)
 #define TIMER_GAUGE_WIDTH (13)
 #define TIMER_INIT_VAL (0)
+#define TIMER_VAL_MAX (60)
 
 #define Beep()				cout << "\a"
 #define Clear()				cout << "\033[H\033[J"

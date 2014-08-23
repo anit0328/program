@@ -8,16 +8,16 @@
 
 class GameManager{
 
-public:
-	enum{
-		kGameStateNoSet = 0,
-		kGameStateStandby,
-		kGameStateRemove,
-		kGameStateMove,
-		kGameStateGameOver,
-		kGameStateCount
-	};
+enum{
+	kGameStateNoSet = 0,
+	kGameStateStandby,
+	kGameStateRemove,
+	kGameStateMove,
+	kGameStateGameOver,
+	kGameStateCount
+};
 
+private:
 	int miGameState;
 	int miScore;
 	int miTime;
@@ -27,21 +27,26 @@ public:
 	GamePuzzle* mpPuzzle;
 	bool mbSelected;
 
+	bool removePuzzle();
+	void downPuzzle();
+	void createNewPuzzle();
+	void printPuzzle();
+
+public:
     GameManager();
     ~GameManager();
 
 	void initVariable();
 	void createPuzzle();
-	bool removePuzzle();
-	void downPuzzle();
-	void createNewPuzzle();
-	void printPuzzle();
 	void updateScore();
 	void checkComboAndUpdateTimer();
 	void moveCursor(int _moveX, int _moveY);
 	void selectedCursor();
-	int getIndex(int _iX, int _iY);
+	int  getIndex(int _iX, int _iY);
 	void printTimer();
+	int  getTime();
+	void setGameStateGameOver();
+	bool isGameStateGameOver();
 };
 
 #endif // GameManager_h

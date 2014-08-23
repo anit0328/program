@@ -5,35 +5,37 @@
 
 class GamePuzzle{
 
-public:
-	enum{
-		kPuzzleTypeInvalid = 0,
-		kPuzzleTypeTriangle,
-		kPuzzleTypeSquare,
-		kPuzzleTypeCircle,
-		kPuzzleTypeInvertedTriangle,
-		kPuzzleTypeStar,
-		kPuzzleTypeCount
-	};
+enum{
+	kPuzzleTypeInvalid = 0,
+	kPuzzleTypeTriangle,
+	kPuzzleTypeSquare,
+	kPuzzleTypeCircle,
+	kPuzzleTypeInvertedTriangle,
+	kPuzzleTypeStar,
+	kPuzzleTypeCount
+};
 
-	enum{
-		kPuzzleStateNoSet = 0,
-		kPuzzleStateSelected,
-		kPuzzleStateRemove,
-		kPuzzleStateMove,
-		kPuzzleStateCount
-	};
+enum{
+	kPuzzleStateNoSet = 0,
+	kPuzzleStateSelected,
+	kPuzzleStateRemove,
+	kPuzzleStateMove,
+	kPuzzleStateCount
+};
 
+private:
 	int miPuzzleType;
 	int miPuzzleState;
 	int miPuzzleIndex;
 
+    void printPuzzleBold();
+    void printPuzzleNormal();
+
+public:
     GamePuzzle();
     ~GamePuzzle();
 
     void printPuzzle();
-    void printPuzzleBold();
-    void printPuzzleNormal();
     void selectedChangePuzzle();
     int getPuzzleType();
     void setPuzzleType(int _iPuzzleType);

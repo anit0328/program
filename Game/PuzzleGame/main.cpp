@@ -44,15 +44,15 @@ int main()
 		}
 
 		// 終了判定
-		if(pManager->miTime == 60){
-			pManager->miGameState = GameManager::kGameStateGameOver;
+		if(pManager->getTime() == TIMER_VAL_MAX){
+			pManager->setGameStateGameOver();
 			timer_val.it_value.tv_usec = 0;
 			PrintGameOver();
 		}
 
 		// 入力待ち
 		int input = fgetc(stdin);
-		if(pManager->miGameState != GameManager::kGameStateGameOver)
+		if(!pManager->isGameStateGameOver())
 		{
 			switch(input){
 				case 'D': 		   /* '←' で左に動かす */
@@ -110,12 +110,6 @@ void initSetting()
 
 	// パズル作成
 	pManager->createPuzzle();
-
-	// 初期位置に移動
-//	DebugPrintXY(pManager->miX, pManager->miY);
-	pManager->getIndex(pManager->miX, pManager->miY);
-//	DebugPrintBool(pManager->mbSelected);
-	Location(pManager->miX, pManager->miY);
 }
 
 // タイマー関数
