@@ -2,9 +2,15 @@
 #define GameManager_h
 
 #include "GameConfig.h"
-#include "GamePuzzle.h"
+#include "GameFrame.h"
+#include "GameScore.h"
+#include "GameFever.h"
+#include "GameTimeGauge.h"
+#include "GamePuzzleManager.h"
 
-#define BONUS_MAX (10)
+#define PrintGameOver() 	Location(2, 5+FRAME_HEIGHT); BgColorWhite("  GAME OVER  "); PrintGameContinue()
+#define PrintGameContinue()	Location(2, 6+FRAME_HEIGHT); cout << "  continue? (y/n)"
+#define ClearGameContinue()	Location(2, 6+FRAME_HEIGHT); cout << "\033[K"
 
 class GameManager{
 
@@ -18,33 +24,25 @@ enum{
 };
 
 private:
-	int miGameState;
-	int miScore;
-	int miTime;
-	int miTimeGauge;
 	int miX;
 	int miY;
-	GamePuzzle* mpPuzzle;
+	int miGameState;
+	GameScore* mpScore;
+	GameFever* mpFever;
+	GameTimeGauge* mpTimeGauge;
+	GamePuzzleManager* mpPuzzleManager;
 	bool mbSelected;
-
-	bool removePuzzle();
-	void downPuzzle();
-	void createNewPuzzle();
-	void printPuzzle();
 
 public:
     GameManager();
     ~GameManager();
 
-	void initVariable();
-	void createPuzzle();
-	void updateScore();
-	void checkComboAndUpdateTimer();
+	void createGameWindow();
 	void moveCursor(int _moveX, int _moveY);
 	void selectedCursor();
 	int  getIndex(int _iX, int _iY);
-	void printTimer();
-	int  getTime();
+	void checkComboAndUpdateTimer();
+	bool isGameOver();
 	void setGameStateGameOver();
 	bool isGameStateGameOver();
 };

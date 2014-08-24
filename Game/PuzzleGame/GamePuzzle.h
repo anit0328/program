@@ -37,9 +37,11 @@ public:
 
     void printPuzzle();
     void selectedChangePuzzle();
+
     int getPuzzleType();
     void setPuzzleType(int _iPuzzleType);
     void setPuzzleTypeRandom();
+
     int getPuzzleState();
     void setPuzzleState(int _iPuzzleState);
     void setPuzzleStateRemove();
@@ -47,6 +49,7 @@ public:
     bool isPuzzleStateNoSet();
     bool isPuzzleStateRemove();
     bool isPuzzleStateMove();
+
     void setPuzzleIndex(int _iPuzzleIndex);
     int getPuzzleIndex();
 };

@@ -1,20 +1,14 @@
-// ■コンパイル方法
-// g++ main.cpp GameManager.cpp GameWindow.cpp GamePuzzle.cpp  -o exe/PuzzleGame
-
 #include "main.h"
 
 GameManager* pManager;
 GameWindow* pWindow;
 
-int main()
+// 初期設定関数
+void initSetting()
 {
 	// ゲーム画面作成
-	pManager = new GameManager();
 	pWindow = new GameWindow();
-
-	// ターミナルのカノニカルモード開始
-    struct termios save_term;
-	save_term = pWindow->startCanon();
+	pManager = new GameManager();
 
     // 乱数初期化
     srand((unsigned)time(NULL));
@@ -22,6 +16,26 @@ int main()
 	// 画面クリア
 	Clear();
 
+	// 画面作成
+	pManager->createGameWindow();
+
+	// タイマーリセット
+	timer_val.it_value.tv_usec = 1000;
+    timer(0);
+
+	// 初期位置に移動
+	Location(GAME_START_INIT_X, GAME_START_INIT_Y);
+}
+
+// タイマー関数
+void timer(int signum)
+{
+//	frameCnt++;
+	setitimer(ITIMER_REAL,&timer_val,(struct itimerval *)0);
+}
+
+int main()
+{
 	// 初期設定＆タイマー起動
 	initSetting();
 
@@ -44,7 +58,7 @@ int main()
 		}
 
 		// 終了判定
-		if(pManager->getTime() == TIMER_VAL_MAX){
+		if(pManager->isGameOver()){
 			pManager->setGameStateGameOver();
 			timer_val.it_value.tv_usec = 0;
 			PrintGameOver();
@@ -75,6 +89,11 @@ int main()
 		}else{
 			if(input == 'y'){		/* 'y' でゲーム再開 */
 				ClearGameContinue();
+
+				// ゲーム画面削除
+				delete pManager;
+				delete pWindow;
+
 				initSetting();
 			}
 			else if(input == 'n'){	/* 'n' で終了 */
@@ -86,35 +105,11 @@ int main()
 		}
 	}
 
-	// ターミナルのカノニカルモード終了
-	pWindow->endCanon(save_term);
-
 	// ゲーム画面削除
-	delete pWindow;
 	delete pManager;
+	delete pWindow;
 	Location(1, 15);
 
 	return 0;
 }
 
-// 初期設定関数
-void initSetting()
-{
-	// 画面作成
-	pManager->initVariable();
-	pWindow->createGameWindow();
-
-	// タイマーリセット
-	timer_val.it_value.tv_usec = 1000;
-    timer(0);
-
-	// パズル作成
-	pManager->createPuzzle();
-}
-
-// タイマー関数
-void timer(int signum)
-{
-//	frameCnt++;
-	setitimer(ITIMER_REAL,&timer_val,(struct itimerval *)0);
-}

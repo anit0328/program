@@ -4,18 +4,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/termios.h>
-#include <errno.h>
 #include "GameConfig.h"
 
 class GameWindow{
+
+private:
+    struct termios mTermios;
 
 public:
     GameWindow();
     ~GameWindow();
 
-	void createGameWindow();
-	struct termios startCanon();
-	void endCanon(struct termios);
+	void startUnCanon();
+	void resetCanon();
 };
 
 #endif // GameWindow_h
