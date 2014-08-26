@@ -12,70 +12,18 @@ void GamePuzzle::printPuzzle()
 {
 	switch(miPuzzleState){
 		case kPuzzleStateNoSet:
-			printPuzzleBold();
+			GameDisplay::printPuzzleBold(miPuzzleType);
 			break;
 		case kPuzzleStateSelected:
-//			printPuzzleNormal();
+//			GameDisplay::printPuzzleNormal(miPuzzleType);
 			break;
 		case kPuzzleStateRemove:
-			printPuzzleNormal();
+			GameDisplay::printPuzzleNormal(miPuzzleType);
 			break;
 		case kPuzzleStateMove:
-			FtColorCyan("↓");
+			GameDisplay::printPuzzleDown();
 			break;
 	}
-}
-
-void GamePuzzle::printPuzzleBold()
-{
-	switch(miPuzzleType){
-		case kPuzzleTypeTriangle:
-			FtColorRed("▲");
-			break;
-		case kPuzzleTypeSquare:
-			FtColorBlue("■");
-			break;
-		case kPuzzleTypeCircle:
-			FtColorGreen("●");
-			break;
-		case kPuzzleTypeInvertedTriangle:
-			FtColorCyan("▼");
-			break;
-		case kPuzzleTypeStar:
-			FtColorYellow("★");
-			break;
-	}
-}
-
-void GamePuzzle::printPuzzleNormal()
-{
-	switch(miPuzzleType){
-		case kPuzzleTypeTriangle:
-			FtColorRed("△");
-			break;
-		case kPuzzleTypeSquare:
-			FtColorBlue("□");
-			break;
-		case kPuzzleTypeCircle:
-			FtColorGreen("○");
-			break;
-		case kPuzzleTypeInvertedTriangle:
-			FtColorCyan("▽");
-			break;
-		case kPuzzleTypeStar:
-			FtColorYellow("☆");
-			break;
-	}
-}
-
-void GamePuzzle::selectedChangePuzzle()
-{
-	if(miPuzzleState == kPuzzleStateNoSet){
-		miPuzzleState = kPuzzleStateSelected;
-	}else{
-		miPuzzleState = kPuzzleStateNoSet;
-	}
-	printPuzzle();
 }
 
 int GamePuzzle::getPuzzleType()
@@ -91,7 +39,7 @@ void GamePuzzle::setPuzzleType(int _iPuzzleType)
 
 void GamePuzzle::setPuzzleTypeRandom()
 {
-	miPuzzleType = rand() % (GamePuzzle::kPuzzleTypeCount-1) +1;
+	miPuzzleType = rand() % (GameDisplay::kPuzzleTypeCount-1) +1;
 	miPuzzleState = kPuzzleStateNoSet;
 	miPuzzleIndex = 0;
 }

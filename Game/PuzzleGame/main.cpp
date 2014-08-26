@@ -13,18 +13,12 @@ void initSetting()
     // 乱数初期化
     srand((unsigned)time(NULL));
 
-	// 画面クリア
-	Clear();
-
 	// 画面作成
 	pManager->createGameWindow();
 
 	// タイマーリセット
 	timer_val.it_value.tv_usec = 1000;
     timer(0);
-
-	// 初期位置に移動
-	Location(GAME_START_INIT_X, GAME_START_INIT_Y);
 }
 
 // タイマー関数
@@ -51,23 +45,22 @@ int main()
 
 	while(true)
 	{
-		// 時間表示
-		if (time(&next) != last){
-			pManager->checkComboAndUpdateTimer();
-			last = next;
-		}
-
-		// 終了判定
-		if(pManager->isGameOver()){
-			pManager->setGameStateGameOver();
-			timer_val.it_value.tv_usec = 0;
-			PrintGameOver();
-		}
-
 		// 入力待ち
 		int input = fgetc(stdin);
 		if(!pManager->isGameStateGameOver())
 		{
+			// 時間表示
+			if (time(&next) != last){
+				pManager->checkComboAndUpdateTimer();
+				last = next;
+			}
+
+			// 終了判定
+			if(pManager->isGameOver()){
+				pManager->setGameStateGameOver();
+				timer_val.it_value.tv_usec = 0;
+			}
+
 			switch(input){
 				case 'D': 		   /* '←' で左に動かす */
 					pManager->moveCursor(-2, 0);
@@ -88,7 +81,6 @@ int main()
 			}
 		}else{
 			if(input == 'y'){		/* 'y' でゲーム再開 */
-				ClearGameContinue();
 
 				// ゲーム画面削除
 				delete pManager;
@@ -108,7 +100,6 @@ int main()
 	// ゲーム画面削除
 	delete pManager;
 	delete pWindow;
-	Location(1, 15);
 
 	return 0;
 }

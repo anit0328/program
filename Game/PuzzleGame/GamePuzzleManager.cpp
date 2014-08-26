@@ -27,7 +27,6 @@ void GamePuzzleManager::createPuzzle()
 		downPuzzle();
 		createNewPuzzle();
 	}
-	printPuzzle();
 }
 
 int GamePuzzleManager::changePuzzle(int _iBeforeIndex, int _iAfterIndex)
@@ -35,28 +34,16 @@ int GamePuzzleManager::changePuzzle(int _iBeforeIndex, int _iAfterIndex)
 	// パズルを入れ替える
 	GamePuzzle puzzle = mpPuzzle[_iBeforeIndex];
 	mpPuzzle[_iBeforeIndex] = mpPuzzle[_iAfterIndex];
-	moveLocation(_iBeforeIndex);
-	mpPuzzle[_iBeforeIndex].printPuzzle();
-
 	mpPuzzle[_iAfterIndex] = puzzle;
-	moveLocation(_iAfterIndex);
-//	mpPuzzle[_iAfterIndex].selectedChangePuzzle();
-	mpPuzzle[_iAfterIndex].printPuzzle();
 
 	int removePoint = removePuzzle();
-	if(removePoint < 1){
-		Beep();
-
+	if(removePoint == 0){
 		// パズルを元に戻す
-		GamePuzzle puzzle = mpPuzzle[_iBeforeIndex];
+		GamePuzzle puzzle2 = mpPuzzle[_iBeforeIndex];
 		mpPuzzle[_iBeforeIndex] = mpPuzzle[_iAfterIndex];
-		moveLocation(_iBeforeIndex);
-		mpPuzzle[_iBeforeIndex].printPuzzle();
-
-		mpPuzzle[_iAfterIndex] = puzzle;
-		moveLocation(_iAfterIndex);
-		mpPuzzle[_iAfterIndex].printPuzzle();
+		mpPuzzle[_iAfterIndex] = puzzle2;
 	}
+
 	return removePoint;
 }
 
@@ -176,6 +163,11 @@ void GamePuzzleManager::downPuzzle()
 	}
 }
 
+void GamePuzzleManager::printPuzzle(int _iIndex)
+{
+	mpPuzzle[_iIndex].printPuzzle();
+}
+
 void GamePuzzleManager::createNewPuzzle()
 {
 	for(int j = FRAME_HEIGHT -1; j >= 0; j--){
@@ -189,22 +181,4 @@ void GamePuzzleManager::createNewPuzzle()
 			mpPuzzle[j * FRAME_WIDTH + i].setPuzzleTypeRandom();
 		}
 	}
-}
-
-void GamePuzzleManager::printPuzzle()
-{
-	for(int i = 0; i< FRAME_WIDTH; i++){
-		for(int j = 0; j< FRAME_HEIGHT; j++){
-			Location(PUZZLE_AREA_INIT_X + i * 2, PUZZLE_AREA_INIT_Y + j);
-			mpPuzzle[j * FRAME_WIDTH + i].printPuzzle();
-		}
-	}
-}
-
-void GamePuzzleManager::moveLocation(int _iIndex)
-{
-	int x = PUZZLE_AREA_INIT_X, y = PUZZLE_AREA_INIT_Y;
-	x += _iIndex % FRAME_WIDTH * 2;
-	y += _iIndex / FRAME_WIDTH;
-	Location(x, y);
 }

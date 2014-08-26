@@ -19,9 +19,8 @@ public:
 	int  changePuzzle(int, int);
 	int  removePuzzle();
 	void downPuzzle();
+	void printPuzzle(int);
 	void createNewPuzzle();
-	void printPuzzle();
-	void moveLocation(int);
 };
 
 #endif // GamePuzzleManager_h
