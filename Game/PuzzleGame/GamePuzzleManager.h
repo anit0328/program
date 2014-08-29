@@ -16,7 +16,7 @@ public:
     ~GamePuzzleManager();
 
 	void createPuzzle();
-	int  changePuzzle(int, int);
+	int  changePuzzle(int _iBeforeIndex, int _iAfterIndex);
 	int  removePuzzle();
 	void downPuzzle();
 	void printPuzzle(int);

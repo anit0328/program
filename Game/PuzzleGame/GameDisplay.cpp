@@ -76,19 +76,19 @@ void GameDisplay::printFrameSide(int _iHeight)
 void GameDisplay::printPuzzleBold(int _iPuzzleType)
 {
 	switch(_iPuzzleType){
-		case kPuzzleTypeTriangle:
+		case eTriangle:
 			printColorRed("▲");
 			break;
-		case kPuzzleTypeSquare:
+		case eSquare:
 			printColorBlue("■");
 			break;
-		case kPuzzleTypeCircle:
+		case eCircle:
 			printColorGreen("●");
 			break;
-		case kPuzzleTypeInvertedTriangle:
+		case eInvertedTriangle:
 			printColorCyan("▼");
 			break;
-		case kPuzzleTypeStar:
+		case eStar:
 			printColorYellow("★");
 			break;
 	}
@@ -97,19 +97,19 @@ void GameDisplay::printPuzzleBold(int _iPuzzleType)
 void GameDisplay::printPuzzleNormal(int _iPuzzleType)
 {
 	switch(_iPuzzleType){
-		case kPuzzleTypeTriangle:
+		case eTriangle:
 			printColorRed("△");
 			break;
-		case kPuzzleTypeSquare:
+		case eSquare:
 			printColorBlue("□");
 			break;
-		case kPuzzleTypeCircle:
+		case eCircle:
 			printColorGreen("○");
 			break;
-		case kPuzzleTypeInvertedTriangle:
+		case eInvertedTriangle:
 			printColorCyan("▽");
 			break;
-		case kPuzzleTypeStar:
+		case eStar:
 			printColorYellow("☆");
 			break;
 	}

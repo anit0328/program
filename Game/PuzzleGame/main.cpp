@@ -24,7 +24,6 @@ void initSetting()
 // タイマー関数
 void timer(int signum)
 {
-//	frameCnt++;
 	setitimer(ITIMER_REAL,&timer_val,(struct itimerval *)0);
 }
 

@@ -7,7 +7,6 @@
 
 struct itimerval timer_val;
 struct sigaction act;
-//int frameCnt = 0;
 
 void initSetting();
-void timer(int);
+void timer(int _iSig;

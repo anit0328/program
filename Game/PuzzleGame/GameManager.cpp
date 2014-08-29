@@ -9,7 +9,7 @@ GameManager::GameManager()
 	miScore = SCORE_INIT_VAL;
 	miTime = TIMER_INIT_VAL;
 	miTimeGauge = TIMER_INIT_VAL;
-	miGameState = kGameStateNoSet;
+	miGameState = eNoSet;
 }
 
 GameManager::~GameManager()
@@ -48,7 +48,7 @@ void GameManager::createGameWindow()
 
 void GameManager::moveCursor(int _moveX, int _moveY)
 {
-	int beforeIndex = getIndex(miX, miY);
+	int beforeIndex = getIndex();
 
 	if(FRAME_INIT_X*2 >= miX + _moveX || miX + _moveX > FRAME_INIT_X*2 + FRAME_WIDTH*2){
 		mpDisplay->alertBeep();
@@ -63,7 +63,7 @@ void GameManager::moveCursor(int _moveX, int _moveY)
 		miY += _moveY;
 	}
 
-	int afterIndex = getIndex(miX, miY);
+	int afterIndex = getIndex();
 	mpDisplay->moveLocation(miX, miY);
 
 	// パズルが選択中か？
@@ -73,7 +73,7 @@ void GameManager::moveCursor(int _moveX, int _moveY)
 		// パズルを入れ替える
 		int removePoint = mpPuzzleManager->changePuzzle(beforeIndex, afterIndex);
 		if(removePoint > 0){
-			miGameState = kGameStateRemove;
+			miGameState = eRemove;
 			printPuzzle();
 			addScore(removePoint);
 		}else{
@@ -85,7 +85,7 @@ void GameManager::moveCursor(int _moveX, int _moveY)
 
 void GameManager::selectedCursor()
 {
-	int index = getIndex(miX, miY);
+	int index = getIndex();
 	if(mbSelected == false){
 		mbSelected = true;
 	}else{
@@ -94,10 +94,10 @@ void GameManager::selectedCursor()
 	mpDisplay->moveLocation(miX, miY);
 }
 
-int GameManager::getIndex(int _iX, int _iY)
+int GameManager::getIndex()
 {
-	int width = (_iX - PUZZLE_AREA_INIT_X) / 2;
-	int index = (_iY - PUZZLE_AREA_INIT_Y)  * FRAME_WIDTH + width;
+	int width = (miX - PUZZLE_AREA_INIT_X) / 2;
+	int index = (miY - PUZZLE_AREA_INIT_Y)  * FRAME_WIDTH + width;
 	return index;
 }
 
@@ -113,13 +113,13 @@ void GameManager::printPuzzle()
 
 void GameManager::checkComboAndUpdateTimer()
 {
-	if(miGameState == kGameStateRemove){
+	if(miGameState == eRemove){
 		mpPuzzleManager->downPuzzle();
 		printPuzzle();
 		mpDisplay->moveLocation(miX, miY);
-		miGameState = kGameStateMove;
+		miGameState = eMove;
 	}
-	else if(miGameState == kGameStateMove){
+	else if(miGameState == eMove){
 		mpPuzzleManager->createNewPuzzle();
 		printPuzzle();
 		mpDisplay->moveLocation(miX, miY);
@@ -129,9 +129,9 @@ void GameManager::checkComboAndUpdateTimer()
 			addScore(removePoint);
 			printPuzzle();
 			mpDisplay->moveLocation(miX, miY);
-			miGameState = kGameStateRemove;
+			miGameState = eRemove;
 		}else{
-			miGameState = kGameStateNoSet;
+			miGameState = eNoSet;
 		}
 
 		// スコア表示
@@ -169,11 +169,11 @@ bool GameManager::isGameOver()
 
 void GameManager::setGameStateGameOver()
 {
-	miGameState = kGameStateGameOver;
+	miGameState = eGameOver;
 	mpDisplay->printGameOver();
 }
 
 bool GameManager::isGameStateGameOver()
 {
-	return miGameState == kGameStateGameOver ? true : false;
+	return miGameState == eGameOver ? true : false;
 }

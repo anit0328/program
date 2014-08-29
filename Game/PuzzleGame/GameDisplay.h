@@ -5,23 +5,15 @@
 
 class GameDisplay{
 
-enum{
-	kPuzzleStateNoSet = 0,
-	kPuzzleStateSelected,
-	kPuzzleStateRemove,
-	kPuzzleStateMove,
-	kPuzzleStateCount
-};
-
 public:
-enum{
-	kPuzzleTypeInvalid = 0,
-	kPuzzleTypeTriangle,
-	kPuzzleTypeSquare,
-	kPuzzleTypeCircle,
-	kPuzzleTypeInvertedTriangle,
-	kPuzzleTypeStar,
-	kPuzzleTypeCount,
+enum ePuzzleType{
+	eInvalid = 0,
+	eTriangle,
+	eSquare,
+	eCircle,
+	eInvertedTriangle,
+	eStar,
+	ePuzzleTypeCount,
 };
 
 private:
@@ -33,26 +25,26 @@ public:
 
     void clearDisplay();
     void alertBeep();
-    void printScore(int);
+    void printScore(int _iScore);
     void printFever();
     void printFrame();
-    void printFrameStr(string);
-    void printFrameSide(int);
-    static void printPuzzleBold(int);
-    static void printPuzzleNormal(int);
+    void printFrameStr(string _str);
+    void printFrameSide(int _iHeight);
+    static void printPuzzleBold(int _iPuzzleType);
+    static void printPuzzleNormal(int _iPuzzleType);
     static void printPuzzleDown();
-    void printTimer(int);
-    void printTimerGauge(int);
+    void printTimer(int _iTime);
+    void printTimerGauge(int _iX);
     void printGameOver();
-    void moveLocation(int, int);
-	static void printColorRed(string);
-	static void printColorBlue(string);
-	static void printColorGreen(string);
-	static void printColorYellow(string);
-	static void printColorCyan(string);
-	static void printColorMagenta(string);
-	static void printColorWhite(string);
-	static void printColorBlack(string);
+    void moveLocation(int _iX, int _iY);
+	static void printColorRed(string _str);
+	static void printColorBlue(string _str);
+	static void printColorGreen(string _str);
+	static void printColorYellow(string _str);
+	static void printColorCyan(string _str);
+	static void printColorMagenta(string _str);
+	static void printColorWhite(string _str);
+	static void printColorBlack(string _str);
 };
 
 #endif // GameDisplay_h

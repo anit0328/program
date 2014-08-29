@@ -7,13 +7,13 @@
 
 class GameManager{
 
-enum{
-	kGameStateNoSet = 0,
-	kGameStateStandby,
-	kGameStateRemove,
-	kGameStateMove,
-	kGameStateGameOver,
-	kGameStateCount
+enum eGameState{
+	eNoSet = 0,
+	eStandby,
+	eRemove,
+	eMove,
+	eGameOver,
+	eGameStateCount
 };
 
 private:
@@ -32,12 +32,12 @@ public:
     ~GameManager();
 
 	void createGameWindow();
-	void moveCursor(int, int);
+	void moveCursor(int _moveX, int _moveY);
 	void selectedCursor();
-	int  getIndex(int, int);
+	int  getIndex();
 	void printPuzzle();
 	void checkComboAndUpdateTimer();
-	void addScore(int);
+	void addScore(int _iScore);
 	int  getTime();
 	void updateTimer();
 	bool isGameOver();

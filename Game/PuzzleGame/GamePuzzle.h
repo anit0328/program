@@ -6,15 +6,15 @@
 
 class GamePuzzle{
 
-enum{
-	kPuzzleStateNoSet = 0,
-	kPuzzleStateSelected,
-	kPuzzleStateRemove,
-	kPuzzleStateMove,
-	kPuzzleStateCount
+private:
+enum ePuzzleState {
+	eNoSet = 0,
+	eSelected,
+	eRemove,
+	eMove,
+	ePuzzleStateCount
 };
 
-private:
 	int miPuzzleType;
 	int miPuzzleState;
 	int miPuzzleIndex;
