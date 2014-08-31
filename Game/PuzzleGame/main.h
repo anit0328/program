@@ -1,12 +1,16 @@
 #include <sys/time.h>
+#include <csignal>
 
 #include "GameConfig.h"
 #include "GameManager.h"
 #include "GameWindow.h"
 #include "GamePuzzle.h"
 
-struct itimerval timer_val;
-struct sigaction act;
+itimerval *pItimerval;
+struct sigaction *pSigaction;
+
+GameManager* pManager;
+GameWindow* pWindow;
 
 void initSetting();
-void timer(int _iSig;
+void timer(int _iSig);

@@ -1,11 +1,12 @@
 #include "main.h"
 
-GameManager* pManager;
-GameWindow* pWindow;
-
 // 初期設定関数
 void initSetting()
 {
+	// タイマー＆アラーム作成
+	pItimerval = new itimerval();
+	pSigaction = new struct sigaction();
+
 	// ゲーム画面作成
 	pWindow = new GameWindow();
 	pManager = new GameManager();
@@ -17,26 +18,26 @@ void initSetting()
 	pManager->createGameWindow();
 
 	// タイマーリセット
-	timer_val.it_value.tv_usec = 1000;
+	pItimerval->it_value.tv_usec = 1000;
     timer(0);
 }
 
 // タイマー関数
 void timer(int signum)
 {
-	setitimer(ITIMER_REAL,&timer_val,(struct itimerval *)0);
+	setitimer(ITIMER_REAL, pItimerval, 0);
 }
 
 int main()
 {
-	// 初期設定＆タイマー起動
+	// 初期設定
 	initSetting();
 
-	// シグアラーム設定
-    act.sa_handler = timer;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(SIGALRM, &act, 0);
+	// アラーム設定
+    pSigaction->sa_handler = timer;
+    sigemptyset(&pSigaction->sa_mask);
+    pSigaction->sa_flags = 0;
+    sigaction(SIGALRM, pSigaction, 0);
 
 	// 時間情報初期化
 	time_t last = time(0);
@@ -57,7 +58,7 @@ int main()
 			// 終了判定
 			if(pManager->isGameOver()){
 				pManager->setGameStateGameOver();
-				timer_val.it_value.tv_usec = 0;
+				pItimerval->it_value.tv_usec = 0;
 			}
 
 			switch(input){
@@ -81,10 +82,15 @@ int main()
 		}else{
 			if(input == 'y'){		/* 'y' でゲーム再開 */
 
+				// タイマー＆アラーム削除
+				delete pItimerval;
+				delete pSigaction;
+
 				// ゲーム画面削除
 				delete pManager;
 				delete pWindow;
 
+				// 初期設定
 				initSetting();
 			}
 			else if(input == 'n'){	/* 'n' で終了 */
@@ -95,10 +101,6 @@ int main()
 			break;
 		}
 	}
-
-	// ゲーム画面削除
-	delete pManager;
-	delete pWindow;
 
 	return 0;
 }

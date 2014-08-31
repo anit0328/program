@@ -9,7 +9,7 @@
 class GameWindow{
 
 private:
-    struct termios mTermios;
+    termios* mpTermios;
 
 public:
     GameWindow();

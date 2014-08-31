@@ -10,7 +10,8 @@ GamePuzzle::~GamePuzzle()
 
 void GamePuzzle::printPuzzle()
 {
-	switch(miPuzzleState){
+	ePuzzleState pzs = static_cast<ePuzzleState>(miPuzzleState);
+	switch(pzs){
 		case eNoSet:
 			GameDisplay::printPuzzleBold(miPuzzleType);
 			break;

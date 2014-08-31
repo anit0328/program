@@ -28,7 +28,7 @@ public:
     void printScore(int _iScore);
     void printFever();
     void printFrame();
-    void printFrameStr(string _str);
+    void printFrameStr(char* _pStr);
     void printFrameSide(int _iHeight);
     static void printPuzzleBold(int _iPuzzleType);
     static void printPuzzleNormal(int _iPuzzleType);
@@ -37,14 +37,14 @@ public:
     void printTimerGauge(int _iX);
     void printGameOver();
     void moveLocation(int _iX, int _iY);
-	static void printColorRed(string _str);
-	static void printColorBlue(string _str);
-	static void printColorGreen(string _str);
-	static void printColorYellow(string _str);
-	static void printColorCyan(string _str);
-	static void printColorMagenta(string _str);
-	static void printColorWhite(string _str);
-	static void printColorBlack(string _str);
+	static void printColorRed(char* _pStr);
+	static void printColorBlue(char* _pStr);
+	static void printColorGreen(char* _pStr);
+	static void printColorYellow(char* _pStr);
+	static void printColorCyan(char* _pStr);
+	static void printColorMagenta(char* _pStr);
+	static void printColorWhite(char* _pStr);
+	static void printColorBlack(char* _pStr);
 };
 
 #endif // GameDisplay_h
