@@ -13,10 +13,10 @@ public:
     GamePuzzleManager();
     ~GamePuzzleManager();
 
-	int  changePuzzle(int _iBeforeIndex, int _iAfterIndex);
+	int  changePuzzle(const int _iBeforeIndex, const int _iAfterIndex);
 	int  removePuzzle();
 	void downPuzzle();
-	void printPuzzle(int);
+	void printPuzzle(const int _iIndex);
 	void createNewPuzzle();
 };
 

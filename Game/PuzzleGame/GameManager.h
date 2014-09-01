@@ -31,12 +31,12 @@ public:
     GameManager();
     ~GameManager();
 
-	void moveCursor(int _moveX, int _moveY);
+	void moveCursor(const int _moveX, const int _moveY);
 	void selectedCursor();
 	int  getIndex();
 	void printPuzzle();
 	void checkComboAndUpdateTimer();
-	void addScore(int _iScore);
+	void addScore(const int _iScore);
 	int  getTime();
 	void updateTimer();
 	bool isGameOver();

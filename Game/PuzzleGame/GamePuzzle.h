@@ -25,16 +25,16 @@ public:
 
     void printPuzzle();
     int getPuzzleType();
-    void setPuzzleType(int _iPuzzleType);
+    void setPuzzleType(const int _iPuzzleType);
     void setPuzzleTypeRandom();
     int getPuzzleState();
-    void setPuzzleState(int _iPuzzleState);
+    void setPuzzleState(const int _iPuzzleState);
     void setPuzzleStateRemove();
     void setPuzzleStateMove();
     bool isPuzzleStateNoSet();
     bool isPuzzleStateRemove();
     bool isPuzzleStateMove();
-    void setPuzzleIndex(int _iPuzzleIndex);
+    void setPuzzleIndex(const int _iPuzzleIndex);
     int getPuzzleIndex();
 };
 

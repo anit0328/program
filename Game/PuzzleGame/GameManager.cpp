@@ -27,7 +27,7 @@ GameManager::~GameManager()
 {
 }
 
-void GameManager::moveCursor(int _moveX, int _moveY)
+void GameManager::moveCursor(const int _moveX, const int _moveY)
 {
 	int beforeIndex = getIndex();
 
@@ -123,7 +123,7 @@ void GameManager::checkComboAndUpdateTimer()
 	gameDisplay.moveLocation(miX, miY);
 }
 
-void GameManager::addScore(int _iScore)
+void GameManager::addScore(const int _iScore)
 {
 	miScore += _iScore;
 }

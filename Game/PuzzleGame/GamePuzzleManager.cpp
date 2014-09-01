@@ -23,7 +23,7 @@ GamePuzzleManager::~GamePuzzleManager()
 {
 }
 
-int GamePuzzleManager::changePuzzle(int _iBeforeIndex, int _iAfterIndex)
+int GamePuzzleManager::changePuzzle(const int _iBeforeIndex, const int _iAfterIndex)
 {
 	// パズルを入れ替える
 	GamePuzzle puzzle = gamePuzzle[_iBeforeIndex];
@@ -157,7 +157,7 @@ void GamePuzzleManager::downPuzzle()
 	}
 }
 
-void GamePuzzleManager::printPuzzle(int _iIndex)
+void GamePuzzleManager::printPuzzle(const int _iIndex)
 {
 	gamePuzzle[_iIndex].printPuzzle();
 }

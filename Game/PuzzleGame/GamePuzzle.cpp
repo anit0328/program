@@ -37,7 +37,7 @@ int GamePuzzle::getPuzzleType()
 	return miPuzzleType;
 }
 
-void GamePuzzle::setPuzzleType(int _iPuzzleType)
+void GamePuzzle::setPuzzleType(const int _iPuzzleType)
 {
 	miPuzzleType = _iPuzzleType;
 	miPuzzleState = eNoSet;
@@ -54,7 +54,7 @@ int GamePuzzle::getPuzzleState()
 	return miPuzzleState;
 }
 
-void GamePuzzle::setPuzzleState(int _iPuzzleState)
+void GamePuzzle::setPuzzleState(const int _iPuzzleState)
 {
 	miPuzzleState = _iPuzzleState;
 }
@@ -93,7 +93,7 @@ bool GamePuzzle::isPuzzleStateMove()
 	return false;
 }
 
-void GamePuzzle::setPuzzleIndex(int _iPuzzleIndex)
+void GamePuzzle::setPuzzleIndex(const int _iPuzzleIndex)
 {
 	miPuzzleIndex = _iPuzzleIndex;
 }
