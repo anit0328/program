@@ -2,6 +2,20 @@
 
 GameDisplay::GameDisplay()
 {
+	// 画面クリア
+	clearDisplay();
+
+	// スコア表示
+	printScore(SCORE_INIT_VAL);
+
+	// FEVER表示
+	printFever();
+
+	// 枠作成
+	printFrame();
+
+	// タイマーゲージ表示
+	printTimer(TIMER_INIT_VAL);
 }
 
 GameDisplay::~GameDisplay()
@@ -17,7 +31,7 @@ void GameDisplay::alertBeep()
 {
 	cout << "\a";
 }
-void GameDisplay::printScore(int _iScore)
+void GameDisplay::printScore(const int _iScore)
 {
 	moveLocation(SCORE_INIT_X, SCORE_INIT_Y);
 	cout << setfill('0') << setw(3) << _iScore / 1000000 << ",";
@@ -45,7 +59,7 @@ void GameDisplay::printFrame()
 {
 	moveLocation(1, 3);
 	cout << "┏";
-	printFrameStr((char*)"━");
+	printFrameStr("━");
 	cout << "┓";
 
 	for(int i = 0; i < FRAME_HEIGHT; i++) {
@@ -54,75 +68,75 @@ void GameDisplay::printFrame()
 
 	moveLocation(1, 4 + FRAME_HEIGHT);
 	cout << "┗";
-	printFrameStr((char*)"━");
+	printFrameStr("━");
 	cout << "┛";
 }
 
-void GameDisplay::printFrameStr(char* _pStr)
+void GameDisplay::printFrameStr(const char* _pStr)
 {
 	for(int i = 0; i < FRAME_WIDTH; i++){
 		cout << _pStr;
 	}
 }
 
-void GameDisplay::printFrameSide(int _iHeight)
+void GameDisplay::printFrameSide(const int _iHeight)
 {
 	moveLocation(1, _iHeight);
 	cout << "┃";
-	printFrameStr((char*)"　");
+	printFrameStr("　");
 	cout << "┃";
 }
 
-void GameDisplay::printPuzzleBold(int _iPuzzleType)
+void GameDisplay::printPuzzleBold(const int _iPuzzleType)
 {
 	ePuzzleType pzt = static_cast<ePuzzleType>(_iPuzzleType);
 	switch(pzt){
 		case eTriangle:
-			printColorRed((char*)"▲");
+			printColorRed("▲");
 			break;
 		case eSquare:
-			printColorBlue((char*)"■");
+			printColorBlue("■");
 			break;
 		case eCircle:
-			printColorGreen((char*)"●");
+			printColorGreen("●");
 			break;
 		case eInvertedTriangle:
-			printColorCyan((char*)"▼");
+			printColorCyan("▼");
 			break;
 		case eStar:
-			printColorYellow((char*)"★");
+			printColorYellow("★");
 			break;
 	}
 }
 
-void GameDisplay::printPuzzleNormal(int _iPuzzleType)
+void GameDisplay::printPuzzleNormal(const int _iPuzzleType)
 {
 	ePuzzleType pzt = static_cast<ePuzzleType>(_iPuzzleType);
 	switch(pzt){
 		case eTriangle:
-			printColorRed((char*)"△");
+			printColorRed("△");
 			break;
 		case eSquare:
-			printColorBlue((char*)"□");
+			printColorBlue("□");
 			break;
 		case eCircle:
-			printColorGreen((char*)"○");
+			printColorGreen("○");
 			break;
 		case eInvertedTriangle:
-			printColorCyan((char*)"▽");
+			printColorCyan("▽");
 			break;
 		case eStar:
-			printColorYellow((char*)"☆");
+			printColorYellow("☆");
 			break;
 	}
 }
 
 void GameDisplay::printPuzzleDown()
 {
-	printColorCyan((char*)"↓");
+	printColorCyan("↓");
 }
 
-void GameDisplay::printTimer(int _iTime)
+void GameDisplay::printTimer(const int _iTime)
 {
 	if(_iTime == TIMER_INIT_VAL){
 		moveLocation(2, 5 + FRAME_HEIGHT);
@@ -136,7 +150,7 @@ void GameDisplay::printTimer(int _iTime)
 	}
 }
 
-void GameDisplay::printTimerGauge(int _iX)
+void GameDisplay::printTimerGauge(const int _iX)
 {
 	moveLocation(2 + _iX, 5 + FRAME_HEIGHT);
 	cout << "\033[47m\033[30m \033[0m\033[0m";
@@ -150,47 +164,47 @@ void GameDisplay::printGameOver()
 	cout << "  continue? (y/n)";
 }
 
-void GameDisplay::moveLocation(int _iX, int _iY)
+void GameDisplay::moveLocation(const int _iX, const int _iY)
 {
 	cout << "\033[" << _iY << ";" << _iX << "H";
 }
 
-void GameDisplay::printColorRed(char* _pStr)
+void GameDisplay::printColorRed(const char* _pStr)
 {
 	cout << "\033[31m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorBlue(char* _pStr)
+void GameDisplay::printColorBlue(const char* _pStr)
 {
 	cout << "\033[34m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorGreen(char* _pStr)
+void GameDisplay::printColorGreen(const char* _pStr)
 {
 	cout << "\033[32m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorYellow(char* _pStr)
+void GameDisplay::printColorYellow(const char* _pStr)
 {
 	cout << "\033[33m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorCyan(char* _pStr)
+void GameDisplay::printColorCyan(const char* _pStr)
 {
 	cout << "\033[36m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorMagenta(char* _pStr)
+void GameDisplay::printColorMagenta(const char* _pStr)
 {
 	cout << "\033[35m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorWhite(char* _pStr)
+void GameDisplay::printColorWhite(const char* _pStr)
 {
 	cout << "\033[37m" << _pStr << "\033[0m";
 }
 
-void GameDisplay::printColorBlack(char* _pStr)
+void GameDisplay::printColorBlack(const char* _pStr)
 {
 	cout << "\033[30m" << _pStr << "\033[0m";
 }

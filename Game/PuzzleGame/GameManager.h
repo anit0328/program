@@ -23,15 +23,14 @@ private:
 	int miTime;
 	int miTimeGauge;
 	int miGameState;
-	GameDisplay* mpDisplay;
-	GamePuzzleManager* mpPuzzleManager;
+	GameDisplay gameDisplay;
+	GamePuzzleManager gamePuzzleManager;
 	bool mbSelected;
 
 public:
     GameManager();
     ~GameManager();
 
-	void createGameWindow();
 	void moveCursor(int _moveX, int _moveY);
 	void selectedCursor();
 	int  getIndex();

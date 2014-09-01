@@ -7,15 +7,12 @@
 #define BONUS_MAX (10)
 
 class GamePuzzleManager{
-
-private:
-	GamePuzzle* mpPuzzle;
+	GamePuzzle gamePuzzle[FRAME_WIDTH * FRAME_HEIGHT];
 
 public:
     GamePuzzleManager();
     ~GamePuzzleManager();
 
-	void createPuzzle();
 	int  changePuzzle(int _iBeforeIndex, int _iAfterIndex);
 	int  removePuzzle();
 	void downPuzzle();

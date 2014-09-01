@@ -2,48 +2,29 @@
 
 GameManager::GameManager()
 {
-	mpDisplay = new GameDisplay();
-	mpPuzzleManager = new GamePuzzleManager();
+	// 初期値設定
 	miX = GAME_START_INIT_X;
 	miY = GAME_START_INIT_Y;
 	miScore = SCORE_INIT_VAL;
 	miTime = TIMER_INIT_VAL;
 	miTimeGauge = TIMER_INIT_VAL;
 	miGameState = eNoSet;
-}
 
-GameManager::~GameManager()
-{
-	delete mpDisplay;
-	delete mpPuzzleManager;
-	mpDisplay->moveLocation(1, 15);
-}
+	// ゲーム画面表示
+	GameDisplay gameDisplay;
 
-void GameManager::createGameWindow()
-{
-	// 画面クリア
-	mpDisplay->clearDisplay();
-
-	// スコア表示
-	mpDisplay->printScore(miScore);
-
-	// FEVER表示
-	mpDisplay->printFever();
-
-	// 枠作成
-	mpDisplay->printFrame();
-
-	// パズル作成
-	mpPuzzleManager->createPuzzle();
+	// ゲームパズル作成
+	GamePuzzleManager gamePuzzleManager;
 
 	// パズル表示
 	printPuzzle();
 
-	// タイマーゲージ表示
-	mpDisplay->printTimer(miTime);
-
 	// 初期位置に移動
-	mpDisplay->moveLocation(GAME_START_INIT_X, GAME_START_INIT_Y);
+	gameDisplay.moveLocation(GAME_START_INIT_X, GAME_START_INIT_Y);
+}
+
+GameManager::~GameManager()
+{
 }
 
 void GameManager::moveCursor(int _moveX, int _moveY)
@@ -51,35 +32,35 @@ void GameManager::moveCursor(int _moveX, int _moveY)
 	int beforeIndex = getIndex();
 
 	if(FRAME_INIT_X*2 >= miX + _moveX || miX + _moveX > FRAME_INIT_X*2 + FRAME_WIDTH*2){
-		mpDisplay->alertBeep();
+		gameDisplay.alertBeep();
 		return;
 	}else{
 		miX += _moveX;
 	}
 	if(FRAME_INIT_Y >= miY + _moveY|| miY + _moveY > FRAME_INIT_Y + FRAME_HEIGHT){
-		mpDisplay->alertBeep();
+		gameDisplay.alertBeep();
 		return;
 	}else{
 		miY += _moveY;
 	}
 
 	int afterIndex = getIndex();
-	mpDisplay->moveLocation(miX, miY);
+	gameDisplay.moveLocation(miX, miY);
 
 	// パズルが選択中か？
 	if(mbSelected == true){
 		mbSelected = false;
 
 		// パズルを入れ替える
-		int removePoint = mpPuzzleManager->changePuzzle(beforeIndex, afterIndex);
+		int removePoint = gamePuzzleManager.changePuzzle(beforeIndex, afterIndex);
 		if(removePoint > 0){
 			miGameState = eRemove;
 			printPuzzle();
 			addScore(removePoint);
 		}else{
-			mpDisplay->alertBeep();
+			gameDisplay.alertBeep();
 		}
-		mpDisplay->moveLocation(miX, miY);
+		gameDisplay.moveLocation(miX, miY);
 	}
 }
 
@@ -91,7 +72,7 @@ void GameManager::selectedCursor()
 	}else{
 		mbSelected = false;
 	}
-	mpDisplay->moveLocation(miX, miY);
+	gameDisplay.moveLocation(miX, miY);
 }
 
 int GameManager::getIndex()
@@ -105,8 +86,8 @@ void GameManager::printPuzzle()
 {
 	for(int i = 0; i< FRAME_WIDTH; i++){
 		for(int j = 0; j< FRAME_HEIGHT; j++){
-			mpDisplay->moveLocation(PUZZLE_AREA_INIT_X + i * 2, PUZZLE_AREA_INIT_Y + j);
-			mpPuzzleManager->printPuzzle(j * FRAME_WIDTH + i);
+			gameDisplay.moveLocation(PUZZLE_AREA_INIT_X + i * 2, PUZZLE_AREA_INIT_Y + j);
+			gamePuzzleManager.printPuzzle(j * FRAME_WIDTH + i);
 		}
 	}
 }
@@ -114,32 +95,32 @@ void GameManager::printPuzzle()
 void GameManager::checkComboAndUpdateTimer()
 {
 	if(miGameState == eRemove){
-		mpPuzzleManager->downPuzzle();
+		gamePuzzleManager.downPuzzle();
 		printPuzzle();
-		mpDisplay->moveLocation(miX, miY);
+		gameDisplay.moveLocation(miX, miY);
 		miGameState = eMove;
 	}
 	else if(miGameState == eMove){
-		mpPuzzleManager->createNewPuzzle();
+		gamePuzzleManager.createNewPuzzle();
 		printPuzzle();
-		mpDisplay->moveLocation(miX, miY);
+		gameDisplay.moveLocation(miX, miY);
 
-		int removePoint = mpPuzzleManager->removePuzzle();
+		int removePoint = gamePuzzleManager.removePuzzle();
 		if(removePoint > 0){
 			addScore(removePoint);
 			printPuzzle();
-			mpDisplay->moveLocation(miX, miY);
+			gameDisplay.moveLocation(miX, miY);
 			miGameState = eRemove;
 		}else{
 			miGameState = eNoSet;
 		}
 
 		// スコア表示
-		mpDisplay->printScore(miScore);
+		gameDisplay.printScore(miScore);
 	}
 
 	updateTimer();
-	mpDisplay->moveLocation(miX, miY);
+	gameDisplay.moveLocation(miX, miY);
 }
 
 void GameManager::addScore(int _iScore)
@@ -155,10 +136,10 @@ int GameManager::getTime()
 void GameManager::updateTimer()
 {
 	miTime++;
-	mpDisplay->printTimer(miTime);
+	gameDisplay.printTimer(miTime);
 
 	if(miTime == 1 || miTime % 5 == 0){
-		mpDisplay->printTimerGauge(miTimeGauge++);
+		gameDisplay.printTimerGauge(miTimeGauge++);
 	}
 }
 
@@ -170,7 +151,7 @@ bool GameManager::isGameOver()
 void GameManager::setGameStateGameOver()
 {
 	miGameState = eGameOver;
-	mpDisplay->printGameOver();
+	gameDisplay.printGameOver();
 }
 
 bool GameManager::isGameStateGameOver()

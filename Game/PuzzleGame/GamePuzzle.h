@@ -7,18 +7,17 @@
 class GamePuzzle{
 
 private:
-enum ePuzzleState {
-	eNoSet = 0,
-	eSelected,
-	eRemove,
-	eMove,
-	ePuzzleStateCount
-};
+	enum ePuzzleState {
+		eNoSet = 0,
+		eSelected,
+		eRemove,
+		eMove,
+		ePuzzleStateCount
+	};
 
 	int miPuzzleType;
 	int miPuzzleState;
 	int miPuzzleIndex;
-	GameDisplay* mpDisplay;
 
 public:
     GamePuzzle();

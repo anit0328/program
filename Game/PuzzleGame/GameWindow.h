@@ -9,7 +9,7 @@
 class GameWindow{
 
 private:
-    termios* mpTermios;
+    termios term;
 
 public:
     GameWindow();

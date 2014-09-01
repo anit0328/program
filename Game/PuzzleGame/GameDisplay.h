@@ -25,26 +25,26 @@ public:
 
     void clearDisplay();
     void alertBeep();
-    void printScore(int _iScore);
+    void printScore(const int _iScore);
     void printFever();
     void printFrame();
-    void printFrameStr(char* _pStr);
-    void printFrameSide(int _iHeight);
-    static void printPuzzleBold(int _iPuzzleType);
-    static void printPuzzleNormal(int _iPuzzleType);
+    void printFrameStr(const char* _pStr);
+    void printFrameSide(const int _iHeight);
+    static void printPuzzleBold(const int _iPuzzleType);
+    static void printPuzzleNormal(const int _iPuzzleType);
     static void printPuzzleDown();
-    void printTimer(int _iTime);
-    void printTimerGauge(int _iX);
+    void printTimer(const int _iTime);
+    void printTimerGauge(const int _iX);
     void printGameOver();
-    void moveLocation(int _iX, int _iY);
-	static void printColorRed(char* _pStr);
-	static void printColorBlue(char* _pStr);
-	static void printColorGreen(char* _pStr);
-	static void printColorYellow(char* _pStr);
-	static void printColorCyan(char* _pStr);
-	static void printColorMagenta(char* _pStr);
-	static void printColorWhite(char* _pStr);
-	static void printColorBlack(char* _pStr);
+    void moveLocation(const int _iX, const int _iY);
+	static void printColorRed(const char* _pStr);
+	static void printColorBlue(const char* _pStr);
+	static void printColorGreen(const char* _pStr);
+	static void printColorYellow(const char* _pStr);
+	static void printColorCyan(const char* _pStr);
+	static void printColorMagenta(const char* _pStr);
+	static void printColorWhite(const char* _pStr);
+	static void printColorBlack(const char* _pStr);
 };
 
 #endif // GameDisplay_h

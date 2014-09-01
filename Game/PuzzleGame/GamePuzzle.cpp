@@ -2,6 +2,11 @@
 
 GamePuzzle::GamePuzzle()
 {
+    // 乱数初期化
+    srand((unsigned)time(NULL));
+
+	miPuzzleState = eNoSet;
+	miPuzzleIndex = 0;
 }
 
 GamePuzzle::~GamePuzzle()
@@ -36,13 +41,12 @@ void GamePuzzle::setPuzzleType(int _iPuzzleType)
 {
 	miPuzzleType = _iPuzzleType;
 	miPuzzleState = eNoSet;
+	miPuzzleIndex = 0;
 }
 
 void GamePuzzle::setPuzzleTypeRandom()
 {
-	miPuzzleType = rand() % (GameDisplay::ePuzzleTypeCount-1) +1;
-	miPuzzleState = eNoSet;
-	miPuzzleIndex = 0;
+	setPuzzleType(rand() % (GameDisplay::ePuzzleTypeCount-1) +1);
 }
 
 int GamePuzzle::getPuzzleState()
