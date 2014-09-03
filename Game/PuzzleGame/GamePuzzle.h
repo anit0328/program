@@ -4,19 +4,17 @@
 #include "GameConfig.h"
 #include "GameDisplay.h"
 
+enum PuzzleState {
+	ePuzzleStateNoSet = 0,
+	ePuzzleStateSelected,
+	ePuzzleStateRemove,
+	ePuzzleStateMove,
+	ePuzzleStateCount
+};
+
 class GamePuzzle{
-
-private:
-	enum ePuzzleState {
-		eNoSet = 0,
-		eSelected,
-		eRemove,
-		eMove,
-		ePuzzleStateCount
-	};
-
-	int miPuzzleType;
-	int miPuzzleState;
+	PuzzleType mePuzzleType;
+	PuzzleState mePuzzleState;
 	int miPuzzleIndex;
 
 public:
@@ -28,7 +26,6 @@ public:
     void setPuzzleType(const int _iPuzzleType);
     void setPuzzleTypeRandom();
     int getPuzzleState();
-    void setPuzzleState(const int _iPuzzleState);
     void setPuzzleStateRemove();
     void setPuzzleStateMove();
     bool isPuzzleStateNoSet();

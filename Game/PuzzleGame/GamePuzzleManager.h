@@ -7,7 +7,7 @@
 #define BONUS_MAX (10)
 
 class GamePuzzleManager{
-	GamePuzzle gamePuzzle[FRAME_WIDTH * FRAME_HEIGHT];
+	GamePuzzle mGamePuzzle[FRAME_WIDTH * FRAME_HEIGHT];
 
 public:
     GamePuzzleManager();

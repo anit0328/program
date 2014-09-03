@@ -3,20 +3,17 @@
 
 #include "GameConfig.h"
 
-class GameDisplay{
-
-public:
-enum ePuzzleType{
-	eInvalid = 0,
-	eTriangle,
-	eSquare,
-	eCircle,
-	eInvertedTriangle,
-	eStar,
+enum PuzzleType{
+	ePuzzleTypeInvalid = 0,
+	ePuzzleTypeTriangle,
+	ePuzzleTypeSquare,
+	ePuzzleTypeCircle,
+	ePuzzleTypeInvertedTriangle,
+	ePuzzleTypeStar,
 	ePuzzleTypeCount,
 };
 
-private:
+class GameDisplay{
 	int miDisplay;
 
 public:
@@ -30,8 +27,8 @@ public:
     void printFrame();
     void printFrameStr(const char* _pStr);
     void printFrameSide(const int _iHeight);
-    static void printPuzzleBold(const int _iPuzzleType);
-    static void printPuzzleNormal(const int _iPuzzleType);
+    static void printPuzzleBold(const PuzzleType _ePuzzleType);
+    static void printPuzzleNormal(const PuzzleType _ePuzzleType);
     static void printPuzzleDown();
     void printTimer(const int _iTime);
     void printTimerGauge(const int _iX);

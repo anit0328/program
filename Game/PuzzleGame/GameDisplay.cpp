@@ -87,45 +87,43 @@ void GameDisplay::printFrameSide(const int _iHeight)
 	cout << "┃";
 }
 
-void GameDisplay::printPuzzleBold(const int _iPuzzleType)
+void GameDisplay::printPuzzleBold(const PuzzleType _ePuzzleType)
 {
-	ePuzzleType pzt = static_cast<ePuzzleType>(_iPuzzleType);
-	switch(pzt){
-		case eTriangle:
+	switch(_ePuzzleType){
+		case ePuzzleTypeTriangle:
 			printColorRed("▲");
 			break;
-		case eSquare:
+		case ePuzzleTypeSquare:
 			printColorBlue("■");
 			break;
-		case eCircle:
+		case ePuzzleTypeCircle:
 			printColorGreen("●");
 			break;
-		case eInvertedTriangle:
+		case ePuzzleTypeInvertedTriangle:
 			printColorCyan("▼");
 			break;
-		case eStar:
+		case ePuzzleTypeStar:
 			printColorYellow("★");
 			break;
 	}
 }
 
-void GameDisplay::printPuzzleNormal(const int _iPuzzleType)
+void GameDisplay::printPuzzleNormal(const PuzzleType _ePuzzleType)
 {
-	ePuzzleType pzt = static_cast<ePuzzleType>(_iPuzzleType);
-	switch(pzt){
-		case eTriangle:
+	switch(_ePuzzleType){
+		case ePuzzleTypeTriangle:
 			printColorRed("△");
 			break;
-		case eSquare:
+		case ePuzzleTypeSquare:
 			printColorBlue("□");
 			break;
-		case eCircle:
+		case ePuzzleTypeCircle:
 			printColorGreen("○");
 			break;
-		case eInvertedTriangle:
+		case ePuzzleTypeInvertedTriangle:
 			printColorCyan("▽");
 			break;
-		case eStar:
+		case ePuzzleTypeStar:
 			printColorYellow("☆");
 			break;
 	}

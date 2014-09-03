@@ -5,7 +5,7 @@ GamePuzzle::GamePuzzle()
     // 乱数初期化
     srand((unsigned)time(NULL));
 
-	miPuzzleState = eNoSet;
+	mePuzzleState = ePuzzleStateNoSet;
 	miPuzzleIndex = 0;
 }
 
@@ -15,18 +15,17 @@ GamePuzzle::~GamePuzzle()
 
 void GamePuzzle::printPuzzle()
 {
-	ePuzzleState pzs = static_cast<ePuzzleState>(miPuzzleState);
-	switch(pzs){
-		case eNoSet:
-			GameDisplay::printPuzzleBold(miPuzzleType);
+	switch(mePuzzleState){
+		case ePuzzleStateNoSet:
+			GameDisplay::printPuzzleBold(mePuzzleType);
 			break;
-		case eSelected:
-//			GameDisplay::printPuzzleNormal(miPuzzleType);
+		case ePuzzleStateSelected:
+//			GameDisplay::printPuzzleNormal(mePuzzleType);
 			break;
-		case eRemove:
-			GameDisplay::printPuzzleNormal(miPuzzleType);
+		case ePuzzleStateRemove:
+			GameDisplay::printPuzzleNormal(mePuzzleType);
 			break;
-		case eMove:
+		case ePuzzleStateMove:
 			GameDisplay::printPuzzleDown();
 			break;
 	}
@@ -34,44 +33,39 @@ void GamePuzzle::printPuzzle()
 
 int GamePuzzle::getPuzzleType()
 {
-	return miPuzzleType;
+	return mePuzzleType;
 }
 
 void GamePuzzle::setPuzzleType(const int _iPuzzleType)
 {
-	miPuzzleType = _iPuzzleType;
-	miPuzzleState = eNoSet;
+	mePuzzleType = static_cast<PuzzleType>(_iPuzzleType);;
+	mePuzzleState = ePuzzleStateNoSet;
 	miPuzzleIndex = 0;
 }
 
 void GamePuzzle::setPuzzleTypeRandom()
 {
-	setPuzzleType(rand() % (GameDisplay::ePuzzleTypeCount-1) +1);
+	setPuzzleType(rand() % (ePuzzleTypeCount-1) +1);
 }
 
 int GamePuzzle::getPuzzleState()
 {
-	return miPuzzleState;
-}
-
-void GamePuzzle::setPuzzleState(const int _iPuzzleState)
-{
-	miPuzzleState = _iPuzzleState;
+	return mePuzzleState;
 }
 
 void GamePuzzle::setPuzzleStateRemove()
 {
-	miPuzzleState = eRemove;
+	mePuzzleState = ePuzzleStateRemove;
 }
 
 void GamePuzzle::setPuzzleStateMove()
 {
-	miPuzzleState = eMove;
+	mePuzzleState = ePuzzleStateMove;
 }
 
 bool GamePuzzle::isPuzzleStateNoSet()
 {
-	if(miPuzzleState == eNoSet){
+	if(mePuzzleState == ePuzzleStateNoSet){
 		return true;
 	}
 	return false;
@@ -79,7 +73,7 @@ bool GamePuzzle::isPuzzleStateNoSet()
 
 bool GamePuzzle::isPuzzleStateRemove()
 {
-	if(miPuzzleState == eRemove){
+	if(mePuzzleState == ePuzzleStateRemove){
 		return true;
 	}
 	return false;
@@ -87,7 +81,7 @@ bool GamePuzzle::isPuzzleStateRemove()
 
 bool GamePuzzle::isPuzzleStateMove()
 {
-	if(miPuzzleState == eMove){
+	if(mePuzzleState == ePuzzleStateMove){
 		return true;
 	}
 	return false;

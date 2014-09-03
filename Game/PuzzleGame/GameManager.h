@@ -5,26 +5,24 @@
 #include "GameDisplay.h"
 #include "GamePuzzleManager.h"
 
-class GameManager{
-
-enum eGameState{
-	eNoSet = 0,
-	eStandby,
-	eRemove,
-	eMove,
-	eGameOver,
+enum GameState{
+	eGameStateNoSet = 0,
+	eGameStateStandby,
+	eGameStateRemove,
+	eGameStateMove,
+	eGameStateGameOver,
 	eGameStateCount
 };
 
-private:
+class GameManager{
 	int miX;
 	int miY;
 	int miScore;
 	int miTime;
 	int miTimeGauge;
-	int miGameState;
-	GameDisplay gameDisplay;
-	GamePuzzleManager gamePuzzleManager;
+	GameState meGameState;
+	GameDisplay mGameDisplay;
+	GamePuzzleManager mGamePuzzleManager;
 	bool mbSelected;
 
 public:

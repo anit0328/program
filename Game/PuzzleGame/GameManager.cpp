@@ -8,19 +8,19 @@ GameManager::GameManager()
 	miScore = SCORE_INIT_VAL;
 	miTime = TIMER_INIT_VAL;
 	miTimeGauge = TIMER_INIT_VAL;
-	miGameState = eNoSet;
+	meGameState = eGameStateNoSet;
 
 	// ゲーム画面表示
-	GameDisplay gameDisplay;
+	GameDisplay mGameDisplay;
 
 	// ゲームパズル作成
-	GamePuzzleManager gamePuzzleManager;
+	GamePuzzleManager mGamePuzzleManager;
 
 	// パズル表示
 	printPuzzle();
 
 	// 初期位置に移動
-	gameDisplay.moveLocation(GAME_START_INIT_X, GAME_START_INIT_Y);
+	mGameDisplay.moveLocation(GAME_START_INIT_X, GAME_START_INIT_Y);
 }
 
 GameManager::~GameManager()
@@ -32,35 +32,35 @@ void GameManager::moveCursor(const int _moveX, const int _moveY)
 	int beforeIndex = getIndex();
 
 	if(FRAME_INIT_X*2 >= miX + _moveX || miX + _moveX > FRAME_INIT_X*2 + FRAME_WIDTH*2){
-		gameDisplay.alertBeep();
+		mGameDisplay.alertBeep();
 		return;
 	}else{
 		miX += _moveX;
 	}
 	if(FRAME_INIT_Y >= miY + _moveY|| miY + _moveY > FRAME_INIT_Y + FRAME_HEIGHT){
-		gameDisplay.alertBeep();
+		mGameDisplay.alertBeep();
 		return;
 	}else{
 		miY += _moveY;
 	}
 
 	int afterIndex = getIndex();
-	gameDisplay.moveLocation(miX, miY);
+	mGameDisplay.moveLocation(miX, miY);
 
 	// パズルが選択中か？
 	if(mbSelected == true){
 		mbSelected = false;
 
 		// パズルを入れ替える
-		int removePoint = gamePuzzleManager.changePuzzle(beforeIndex, afterIndex);
+		int removePoint = mGamePuzzleManager.changePuzzle(beforeIndex, afterIndex);
 		if(removePoint > 0){
-			miGameState = eRemove;
+			meGameState = eGameStateRemove;
 			printPuzzle();
 			addScore(removePoint);
 		}else{
-			gameDisplay.alertBeep();
+			mGameDisplay.alertBeep();
 		}
-		gameDisplay.moveLocation(miX, miY);
+		mGameDisplay.moveLocation(miX, miY);
 	}
 }
 
@@ -72,7 +72,7 @@ void GameManager::selectedCursor()
 	}else{
 		mbSelected = false;
 	}
-	gameDisplay.moveLocation(miX, miY);
+	mGameDisplay.moveLocation(miX, miY);
 }
 
 int GameManager::getIndex()
@@ -86,41 +86,41 @@ void GameManager::printPuzzle()
 {
 	for(int i = 0; i< FRAME_WIDTH; i++){
 		for(int j = 0; j< FRAME_HEIGHT; j++){
-			gameDisplay.moveLocation(PUZZLE_AREA_INIT_X + i * 2, PUZZLE_AREA_INIT_Y + j);
-			gamePuzzleManager.printPuzzle(j * FRAME_WIDTH + i);
+			mGameDisplay.moveLocation(PUZZLE_AREA_INIT_X + i * 2, PUZZLE_AREA_INIT_Y + j);
+			mGamePuzzleManager.printPuzzle(j * FRAME_WIDTH + i);
 		}
 	}
 }
 
 void GameManager::checkComboAndUpdateTimer()
 {
-	if(miGameState == eRemove){
-		gamePuzzleManager.downPuzzle();
+	if(meGameState == eGameStateRemove){
+		mGamePuzzleManager.downPuzzle();
 		printPuzzle();
-		gameDisplay.moveLocation(miX, miY);
-		miGameState = eMove;
+		mGameDisplay.moveLocation(miX, miY);
+		meGameState = eGameStateMove;
 	}
-	else if(miGameState == eMove){
-		gamePuzzleManager.createNewPuzzle();
+	else if(meGameState == eGameStateMove){
+		mGamePuzzleManager.createNewPuzzle();
 		printPuzzle();
-		gameDisplay.moveLocation(miX, miY);
+		mGameDisplay.moveLocation(miX, miY);
 
-		int removePoint = gamePuzzleManager.removePuzzle();
+		int removePoint = mGamePuzzleManager.removePuzzle();
 		if(removePoint > 0){
 			addScore(removePoint);
 			printPuzzle();
-			gameDisplay.moveLocation(miX, miY);
-			miGameState = eRemove;
+			mGameDisplay.moveLocation(miX, miY);
+			meGameState = eGameStateRemove;
 		}else{
-			miGameState = eNoSet;
+			meGameState = eGameStateNoSet;
 		}
 
 		// スコア表示
-		gameDisplay.printScore(miScore);
+		mGameDisplay.printScore(miScore);
 	}
 
 	updateTimer();
-	gameDisplay.moveLocation(miX, miY);
+	mGameDisplay.moveLocation(miX, miY);
 }
 
 void GameManager::addScore(const int _iScore)
@@ -136,10 +136,10 @@ int GameManager::getTime()
 void GameManager::updateTimer()
 {
 	miTime++;
-	gameDisplay.printTimer(miTime);
+	mGameDisplay.printTimer(miTime);
 
 	if(miTime == 1 || miTime % 5 == 0){
-		gameDisplay.printTimerGauge(miTimeGauge++);
+		mGameDisplay.printTimerGauge(miTimeGauge++);
 	}
 }
 
@@ -150,11 +150,11 @@ bool GameManager::isGameOver()
 
 void GameManager::setGameStateGameOver()
 {
-	miGameState = eGameOver;
-	gameDisplay.printGameOver();
+	meGameState = eGameStateGameOver;
+	mGameDisplay.printGameOver();
 }
 
 bool GameManager::isGameStateGameOver()
 {
-	return miGameState == eGameOver ? true : false;
+	return meGameState == eGameStateGameOver ? true : false;
 }
